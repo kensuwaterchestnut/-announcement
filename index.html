@@ -5,18 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>KenSu 總部公告｜官方訊息</title>
   <style>
-    :root {
-      --bg: #0a0a0a;
-      --ink: #f7f7f7;
-      --muted: #bfbfbf;
-      --line: #222;
-      --shadow: 0 8px 24px rgba(0,0,0,.35);
-    }
-
     body {
       margin: 0;
-      background: var(--bg);
-      color: var(--ink);
+      background: #fff; /* 白底 */
+      color: #111;
       font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
     }
 
@@ -26,8 +18,9 @@
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       background: url('公司章.png') center center no-repeat;
-      background-size: 60%;
-      opacity: 0.08;
+      background-size: 65%;
+      opacity: 0.15; /* 淡紅效果 */
+      filter: grayscale(20%) contrast(120%) brightness(120%);
       z-index: 0;
       pointer-events: none;
     }
@@ -35,12 +28,12 @@
     .content { position: relative; z-index: 1; }
 
     header, section, footer { padding: 40px 20px; max-width: 800px; margin: auto; }
-    h1, h2 { border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+    h1, h2 { border-bottom: 1px solid #ddd; padding-bottom: 8px; }
 
-    .meta { font-size: 14px; color: var(--muted); margin: 10px 0; }
-    .notice { border: 1px solid var(--line); border-radius: 10px; padding: 20px; background: #111; margin: 20px 0; box-shadow: var(--shadow); }
+    .meta { font-size: 14px; color: #666; margin: 10px 0; }
+    .notice { border: 1px solid #ccc; border-radius: 10px; padding: 20px; background: #fafafa; margin: 20px 0; }
 
-    footer { text-align: center; font-size: 14px; color: var(--muted); }
+    footer { text-align: center; font-size: 14px; color: #666; padding: 20px; }
   </style>
 </head>
 <body>
