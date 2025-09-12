@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>KenSu 總部公告｜官方訊息</title>
+  <meta name="description" content="KenSu 總部公告一頁式官方網站，提供重要通知、稽查聲明、制度更新與聯絡方式。" />
+  <style>
+    /* —— 顏色變數（僅黑白階） —— */
+    :root {
+      --bg: #0a0a0a;         /* 頁面背景（深黑） */
+      --panel: #111;         /* 卡片背景 */
+      --ink: #f7f7f7;        /* 主要文字（近白） */
+      --muted: #bfbfbf;      /* 次要文字（灰） */
+      --line: #222;          /* 邊線 */
+      --accent: #fff;        /* 強調（純白） */
+      --shadow: 0 8px 24px rgba(0,0,0,.35);
+    }
+
+    /* —— 全域排版 —— */
+    html, body { height: 100%; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Segoe UI, Roboto, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      letter-spacing: .2px;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container { width: min(1100px, 92vw); margin-inline: auto; }
+    .section { padding: clamp(56px, 7vw, 96px) 0; position: relative; }
+    .stack { display: grid; gap: clamp(12px, 2vw, 20px); }
+    .subtle { color: var(--muted); }
+
+    /* —— 頂部導覽 —— */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(6px);
+      background: rgba(10,10,10,.75);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; letter-spacing: .6px; }
+    .brand-badge { width: 28px; height: 28px; border: 2px solid var(--ink); border-radius: 8px; display: grid; place-items: center; font-size: 14px; }
+    .nav-links { display: flex; gap: 18px; align-items: center; }
+    .nav a { opacity: .9; }
+    .nav a:hover { opacity: 1; }
+
+    /* 行動選單 */
+    .menu-btn { display: none; border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; background: #0d0d0d; }
+    .menu-panel { display: none; border-top: 1px solid var(--line); background: #0d0d0d; }
+    .menu-panel a { display: block; padding: 14px 0; border-bottom: 1px solid var(--line); }
+
+    @media (max-width: 880px) {
+      .nav-links { display: none; }
+      .menu-btn { display: inline-grid; }
+      .menu-panel[aria-expanded="true"] { display: block; }
+    }
+
+    /* —— Hero —— */
+    .hero { padding: clamp(84px, 12vw, 140px) 0 clamp(56px, 8vw, 96px); }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: clamp(20px, 4vw, 48px); align-items: end; }
+    .kicker { font-size: 14px; color: var(--muted); letter-spacing: .4px; }
+    .h1 { font-size: clamp(28px, 5vw, 56px); line-height: 1.08; font-weight: 800; margin: 8px 0 16px; }
+    .lead { font-size: clamp(14px, 1.6vw, 18px); color: var(--muted); }
+    .hero-card {
+      background: linear-gradient(180deg, #0f0f0f, #0b0b0b);
+      border: 1px solid var(--line);
+      border-radius: 18px; padding: 22px; box-shadow: var(--shadow);
+    }
+    .stat { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: end; }
+    .stat .num { font-weight: 800; font-size: clamp(22px, 3.8vw, 36px); }
+    .pill { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: #111; background: var(--ink); padding: 6px 10px; border-radius: 999px; }
+
+    @media (max-width: 880px) {
+      .hero-grid { grid-template-columns: 1fr; }
+    }
+
+    /* —— 公告卡片 —— */
+    .cards { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .card { grid-column: span 6; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 20px; box-shadow: var(--shadow); }
+    .card.small { grid-column: span 4; }
+    .card.full { grid-column: 1 / -1; }
+    .card h3 { margin: 8px 0 6px; font-size: clamp(18px, 2vw, 22px); }
+    .meta { font-size: 12px; color: var(--muted); display: flex; gap: 12px; align-items: center; }
+    .badge { border: 1px solid var(--line); padding: 4px 8px; border-radius: 999px; font-size: 12px; }
+
+    @media (max-width: 880px) {
+      .card, .card.small { grid-column: 1 / -1; }
+    }
+
+    /* —— 手風琴（FAQ / 詳細說明） —— */
+    .accordion { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+    .ac-item + .ac-item { border-top: 1px solid var(--line); }
+    .ac-btn { all: unset; display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; width: 100%; padding: 16px 18px; cursor: pointer; }
+    .ac-btn:hover { background: #0e0e0e; }
+    .ac-icon { transition: transform .26s ease; }
+    .ac-panel { display: none; padding: 0 18px 18px; color: var(--muted); }
+    .ac-item[aria-expanded="true"] .ac-panel { display: block; }
+    .ac-item[aria-expanded="true"] .ac-icon { transform: rotate(45deg); }
+
+    /* —— 資訊列 —— */
+    .info { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .info > div { border: 1px solid var(--line); border-radius: 14px; padding: 18px; background: #0e0e0e; }
+    @media (max-width: 880px) { .info { grid-template-columns: 1fr; } }
+
+    /* —— 底部 —— */
+    footer { border-top: 1px solid var(--line); padding: 26px 0 40px; color: var(--muted); }
+
+    /* —— 動態與進場效果 —— */
+    .reveal { opacity: 0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* 減少動畫的裝置友善處理 */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .ac-icon { transition: none; }
+    }
+
+    /* —— 簡易按鈕與表單 —— */
+    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 12px; background: #0d0d0d; color: var(--ink); }
+    .btn:hover { background: #121212; }
+    .grid { display: grid; gap: 12px; }
+    input, textarea { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line); background: #0d0d0d; color: var(--ink); }
+    textarea { min-height: 120px; resize: vertical; }
+
+    /* —— 細節：選取、捲軸 —— */
+    ::selection { background: var(--ink); color: #111; }
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-thumb { background: #1e1e1e; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <!-- ===== 導覽列 ===== -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#top" class="brand">
+        <span class="brand-badge" aria-hidden>KS</span>
+        <span>KenSu 總部公告</span>
+      </a>
+      <nav class="nav-links" aria-label="主要導覽">
+        <a href="#notices">最新公告</a>
+        <a href="#details">詳細說明</a>
+        <a href="#contact">聯絡</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <button class="menu-btn" id="menuBtn" aria-controls="menuPanel" aria-expanded="false" aria-label="開啟選單">☰</button>
+    </div>
+    <div id="menuPanel" class="container menu-panel" aria-expanded="false">
+      <a href="#notices">最新公告</a>
+      <a href="#details">詳細說明</a>
+      <a href="#contact">聯絡</a>
+      <a href="#faq">FAQ</a>
+    </div>
+  </header>
+
+  <!-- ===== Hero 區 ===== -->
+  <main id="top" class="hero">
+    <div class="container hero-grid reveal">
+      <div>
+        <div class="pill" aria-label="官方頻道">● 官方頻道</div>
+        <h1 class="h1">官方公告中心<br/>Official Notices</h1>
+        <p class="lead">此頁為 KenSu 總部對外公告之唯一管道。所有文字皆為範例與占位內容，日後請依實際公告替換。</p>
+      </div>
+      <aside class="hero-card stack" role="complementary" aria-label="重點統計">
+        <div class="stat">
+          <div><span class="subtle">最新更新</span><div class="num" id="lastUpdated">—</div></div>
+          <span class="badge">UTC+8</span>
+        </div>
+        <div class="subtle">可將此區塊改為「重大訊息」或「下載中心」。建議保留黑白風格以維持一致性。</div>
+        <div class="grid" style="grid-template-columns: repeat(2,1fr);">
+          <a class="btn" href="#notices">查看公告</a>
+          <a class="btn" href="#contact">聯絡總部</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- ===== 最新公告 ===== -->
+  <section id="notices" class="section">
+    <div class="container stack">
+      <h2 class="reveal" style="font-size: clamp(22px, 3vw, 34px); margin: 0;">最新公告</h2>
+      <p class="subtle reveal">以下內容為範例卡片，請於正式發布前以實際公告替換。</p>
+
+      <div class="cards">
+        <article class="card reveal">
+          <div class="meta"><time datetime="2025-09-12">2025/09/12</time><span class="badge">制度更新</span></div>
+          <h3>【占位】供應鏈與出貨時程調整</h3>
+          <p class="subtle">此段文字為占位。請替換為正式說明，包含生效日、對象、影響範圍與聯絡窗口。</p>
+        </article>
+
+        <article class="card reveal">
+          <div class="meta"><time datetime="2025-09-01">2025/09/01</time><span class="badge">稽查說明</span></div>
+          <h3>【占位】食品標示與稽查配合聲明</h3>
+          <p class="subtle">此段文字為占位。請補上法規依據、改善期限、文件下載連結與QA。</p>
+        </article>
+
+        <article class="card small reveal">
+          <div class="meta"><time datetime="2025-08-25">2025/08/25</time><span class="badge">系統</span></div>
+          <h3>【占位】叫貨系統維護時段</h3>
+          <p class="subtle">維護時段與不影響項目說明。</p>
+        </article>
+
+        <article class="card small reveal">
+          <div class="meta"><time datetime="2025-08-18">2025/08/18</time><span class="badge">活動</span></div>
+          <h3>【占位】品牌行銷活動預告</h3>
+          <p class="subtle">活動日期與報名方式。</p>
+        </article>
+
+        <article class="card full reveal">
+          <div class="meta"><time datetime="2025-08-01">2025/08/01</time><span class="badge">公告</span></div>
+          <h3>【占位】總部聯絡窗口更新</h3>
+          <p class="subtle">改版後的聯絡信箱、服務時間與注意事項。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 詳細說明（手風琴） ===== -->
+  <section id="details" class="section">
+    <div class="container stack">
+      <h2 class="reveal" style="font-size: clamp(22px, 3vw, 34px); margin: 0;">詳細說明</h2>
+      <div class="accordion reveal" role="region" aria-label="詳細說明列表">
+        <div class="ac-item" aria-expanded="false">
+          <button class="ac-btn" type="button">
+            <span>【占位】公告格式與發布原則</span>
+            <span class="ac-icon" aria-hidden>＋</span>
+          </button>
+          <div class="ac-panel">
+            <p>此處放入公告撰寫格式、標題規則、日期樣式、負責單位等。可提供 Markdown 或 Word 模板下載連結。</p>
+          </div>
+        </div>
+        <div class="ac-item" aria-expanded="false">
+          <button class="ac-btn" type="button">
+            <span>【占位】稽查配合與文件清單</span>
+            <span class="ac-icon" aria-hidden>＋</span>
+          </button>
+          <div class="ac-panel">
+            <p>列出必備文件與範例：營登影本、產品標示、SGS 報告、保險證明等。</p>
+          </div>
+        </div>
+        <div class="ac-item" aria-expanded="false">
+          <button class="ac-btn" type="button">
+            <span>【占位】加盟制度更新時程</span>
+            <span class="ac-icon" aria-hidden>＋</span>
+          </button>
+          <div class="ac-panel">
+            <p>用條列或時間軸呈現：公告日 → 生效日 → 緩衝期 → 強制實施。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 聯絡 ===== -->
+  <section id="contact" class="section">
+    <div class="container stack">
+      <h2 class="reveal" style="font-size: clamp(22px, 3vw, 34px); margin: 0;">聯絡總部</h2>
+      <div class="info reveal">
+        <div>
+          <div class="subtle">電子信箱</div>
+          <strong>example@kensu.com</strong>
+        </div>
+        <div>
+          <div class="subtle">服務時間</div>
+          <strong>週一～週五 10:00-18:00</strong>
+        </div>
+        <div>
+          <div class="subtle">對外聲明連結</div>
+          <a class="btn" href="#">下載範例 PDF</a>
+        </div>
+      </div>
+
+      <form class="stack reveal" onsubmit="event.preventDefault(); alert('這裡可串接表單服務或寄信 API');">
+        <label>
+          <div class="subtle">主旨</div>
+          <input placeholder="例：關於公告 #2025-09-12 的提問" required />
+        </label>
+        <label>
+          <div class="subtle">Email</div>
+          <input type="email" placeholder="you@example.com" required />
+        </label>
+        <label>
+          <div class="subtle">訊息</div>
+          <textarea placeholder="請輸入您的問題或建議…" required></textarea>
+        </label>
+        <button class="btn" type="submit">送出</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq" class="section">
+    <div class="container stack">
+      <h2 class="reveal" style="font-size: clamp(22px, 3vw, 34px); margin: 0;">常見問題（占位）</h2>
+      <div class="accordion reveal">
+        <div class="ac-item" aria-expanded="false">
+          <button class="ac-btn" type="button"><span>公告是否以此頁為準？</span><span class="ac-icon">＋</span></button>
+          <div class="ac-panel"><p>是。所有公告以此頁與 PDF 正式檔為準。</p></div>
+        </div>
+        <div class="ac-item" aria-expanded="false">
+          <button class="ac-btn" type="button"><span>何時更新？</span><span class="ac-icon">＋</span></button>
+          <div class="ac-panel"><p>每逢制度調整或需求變更即時更新，並標注時間戳。</p></div>
+        </div>
+        <div class="ac-item" aria-expanded="false">
+          <button class="ac-btn" type="button"><span>可否下載公告？</span><span class="ac-icon">＋</span></button>
+          <div class="ac-panel"><p>可。建議提供 PDF 與 DOCX 兩種格式。</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+      <div>© <span id="year">—</span> KenSu. All rights reserved.</div>
+      <div class="subtle">黑白極簡版｜一頁式｜新手可改</div>
+    </div>
+  </footer>
+
+  <script>
+    // —— 行動選單切換 ——
+    const menuBtn = document.getElementById('menuBtn');
+    const menuPanel = document.getElementById('menuPanel');
+    menuBtn?.addEventListener('click', () => {
+      const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', String(!expanded));
+      menuPanel.setAttribute('aria-expanded', String(!expanded));
+    });
+
+    // —— 手風琴切換 ——
+    document.querySelectorAll('.ac-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.ac-item');
+        const current = item.getAttribute('aria-expanded') === 'true';
+        item.setAttribute('aria-expanded', String(!current));
+      });
+    });
+
+    // —— 捲動進場（IntersectionObserver） ——
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // —— 年份與時間戳 ——
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const pad = n => (n<10? '0'+n : n);
+    const now = new Date();
+    const stamp = `${now.getFullYear()}/${pad(now.getMonth()+1)}/${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+    document.getElementById('lastUpdated').textContent = stamp;
+  </script>
+</body>
+</html>
