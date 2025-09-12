@@ -5,26 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>KenSu 總部公告｜官方訊息</title>
   <style>
+    /* ===== 版面與字體 ===== */
+    :root{
+      --seal-url: url('公司章.png'); /* 將圖檔放同資料夾；若在 assets 內，改為 url('assets/公司章.png') */
+      --seal-opacity: .14;           /* 浮水印透明度（0~1） */
+      --seal-rotate: -35deg;         /* 斜角角度（負數為左上→右下） */
+      --seal-size: 120vmin;          /* 以視窗最短邊為基準的尺寸 */
+    }
+
+    html, body { height: 100%; }
     body {
       margin: 0;
       background: #fff; /* 白底 */
       color: #111;
-      font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ====== 浮水印設定 ====== */
-    body::before {
+    /* ====== 斜角浮水印（法院公文風） ====== */
+    body::before{
       content: "";
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: url('公司章.png') center center no-repeat;
-      background-size: 65%;
-      opacity: 0.15; /* 淡紅效果 */
-      filter: grayscale(20%) contrast(120%) brightness(120%);
+      inset: 0;
+      background-image: var(--seal-url);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: var(--seal-size);
+      opacity: var(--seal-opacity);
+      filter: grayscale(10%) contrast(115%) brightness(110%);
+      transform: rotate(var(--seal-rotate));
+      transform-origin: center center;
       z-index: 0;
       pointer-events: none;
+      mix-blend-mode: multiply; /* 讓紅色與白底更自然疊合 */
     }
 
+    /* 主要內容層提高，以免被浮水印覆蓋互動 */
     .content { position: relative; z-index: 1; }
 
     header, section, footer { padding: 40px 20px; max-width: 800px; margin: auto; }
@@ -34,6 +51,11 @@
     .notice { border: 1px solid #ccc; border-radius: 10px; padding: 20px; background: #fafafa; margin: 20px 0; }
 
     footer { text-align: center; font-size: 14px; color: #666; padding: 20px; }
+
+    /* 行動裝置微調：縮小浮水印、降低透明度避免干擾閱讀 */
+    @media (max-width: 600px){
+      :root{ --seal-size: 140vmin; --seal-opacity: .12; }
+    }
   </style>
 </head>
 <body>
