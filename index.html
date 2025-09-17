@@ -3,21 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>KenSu 總部公告｜官方訊息</title>
+  <title>KenSu 總部公告｜芋泥餡料暫停供應通知</title>
   <style>
     /* ===== 版面與字體 ===== */
     :root{
-      --seal-url: url('公司章.png'); /* 將圖檔放同資料夾；若在 assets 內，改為 url('assets/公司章.png') */
+      --seal-url: url('公司章.png'); /* 將圖檔放同資料夾；若在 assets 內，改成 url('assets/公司章.png') */
       --seal-opacity: .14;           /* 浮水印透明度（0~1） */
       --seal-rotate: -35deg;         /* 斜角角度（負數為左上→右下） */
       --seal-size: 120vmin;          /* 以視窗最短邊為基準的尺寸 */
+      --card-bg: #fafafa;
+      --divider: #ddd;
+      --ink-weak: #666;
+      --ink: #111;
+      --brand: #111;
+      --btn-bg: #111;
+      --btn-ink: #fff;
+      --btn-radius: 10px;
     }
 
     html, body { height: 100%; }
     body {
       margin: 0;
-      background: #fff; /* 白底 */
-      color: #111;
+      background: #fff;
+      color: var(--ink);
       font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -38,50 +46,91 @@
       transform-origin: center center;
       z-index: 0;
       pointer-events: none;
-      mix-blend-mode: multiply; /* 讓紅色與白底更自然疊合 */
+      mix-blend-mode: multiply;
     }
 
     /* 主要內容層提高，以免被浮水印覆蓋互動 */
     .content { position: relative; z-index: 1; }
 
     header, section, footer { padding: 40px 20px; max-width: 800px; margin: auto; }
-    h1, h2 { border-bottom: 1px solid #ddd; padding-bottom: 8px; }
+    h1, h2 { border-bottom: 1px solid var(--divider); padding-bottom: 8px; margin: 0 0 12px; }
+    h1 { font-size: 26px; }
+    h2 { font-size: 20px; }
 
-    .meta { font-size: 14px; color: #666; margin: 10px 0; }
-    .notice { border: 1px solid #ccc; border-radius: 10px; padding: 20px; background: #fafafa; margin: 20px 0; }
+    .meta { font-size: 14px; color: var(--ink-weak); margin: 10px 0 0; line-height: 1.6; }
+    .notice { border: 1px solid #ccc; border-radius: 10px; padding: 20px; background: var(--card-bg); margin: 20px 0; }
 
-    footer { text-align: center; font-size: 14px; color: #666; padding: 20px; }
+    .btn-row { margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 10px 16px; border-radius: var(--btn-radius);
+      background: var(--btn-bg); color: var(--btn-ink); text-decoration: none; font-weight: 600;
+    }
+    .btn:active { opacity: .85; }
+
+    footer { text-align: center; font-size: 14px; color: var(--ink-weak); padding: 20px; }
+
+    ul { margin: 0; padding-left: 20px; }
+    li + li { margin-top: 6px; }
 
     /* 行動裝置微調：縮小浮水印、降低透明度避免干擾閱讀 */
     @media (max-width: 600px){
       :root{ --seal-size: 140vmin; --seal-opacity: .12; }
+      h1 { font-size: 22px; }
     }
   </style>
 </head>
 <body>
   <div class="content">
     <header>
-      <h1>KenSu 總部公告</h1>
-      <div class="meta">公告日期：2025年09月12日　公告字號：KenSu-20250912-01</div>
+      <h1>【公告】芋泥餡料暫停供應通知</h1>
+      <div class="meta">
+        公告文號：啃酥總部字第 1140901 號<br />
+        公告日期：民國114年9月17日
+      </div>
+      <div class="btn-row">
+        <!-- 將檔名改成你站上的實際路徑，例如 ./正式衛生局通知書含印章.pdf 或 /assets/xxx.pdf -->
+        <a class="btn" href="./正式衛生局通知書含印章.pdf" download>下載｜衛生局稽查 PDF</a>
+      </div>
     </header>
 
     <section>
-      <h2>公告主旨</h2>
+      <h2>主旨</h2>
       <div class="notice">
-        <p>【占位】此區塊為公告標題與重點，例如「供應鏈調整」、「加盟制度更新」、「食品標示規範公告」等。</p>
+        短期內因應主管機關稽查輔導，芋泥餡料製程需調整，總部即日起暫停出貨芋泥丁，特此公告周知。
       </div>
     </section>
 
     <section>
-      <h2>公告內容</h2>
+      <h2>說明</h2>
       <div class="notice">
-        <p>【占位】此區塊為公告詳細說明，請依法院公文風格書寫。包含：</p>
+        <ol style="margin:0; padding-left:20px;">
+          <li>衛生局於近期稽查中，明確指出芋泥餡料不得添加「己二烯酸鉀」作為延長保存期限之方式，總部已立即遵循主管機關規範。</li>
+          <li>為確保食品安全與品牌長久經營，總部已與原料廠商積極研發改良製程，並將於確認安全性與保存期限後，第一時間恢復供應。</li>
+          <li>於本公告生效期間，芋泥丁暫停供應，各加盟據點請務必留意現有產品之有效日期：
+            <ul>
+              <li>逾期商品不得販售，如違規遭衛生局查獲，責任由各據點自行承擔。</li>
+              <li>總部巡店時將加強稽核此部分，若違反規範，將依加盟合約進行處理。</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section>
+      <h2>附註</h2>
+      <div class="notice">
         <ul>
-          <li>公告依據</li>
-          <li>影響範圍</li>
-          <li>生效日期</li>
-          <li>相關聯絡窗口</li>
+          <li>總部理解此情況造成各加盟主之不便，並懇請體諒與配合。</li>
+          <li>如需相關主管機關稽查文件，可向總部提出申請查閱。</li>
+          <li>本公告總部保有後續修正與補充公告之權利。</li>
         </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="notice" style="text-align:right;">
+        啃酥菱角酥 總部<br/>
+        酥味香企業社
       </div>
     </section>
 
